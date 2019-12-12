@@ -1,12 +1,12 @@
 #include <ncurses.h>     // ncurses library
 /* Internal function declarations   */
 
-int  rock ();           
+int  rock ();
 int paper();
 int scissors();
 int reload();
 
-/* main function */
+/* main function*/
 
 int main(void) {
 	initscr();
@@ -24,15 +24,15 @@ int main(void) {
 
   	endwin();
 return 0;
-} 
+}
 
-/* internal functions  */
+/* internal functions*/
 int reload(){
 	refresh();
   	getch();
 }
 
-int  rock (){
+int rock(){
   	mvaddstr(10, 33, "    ****     ");
   	mvaddstr(10, 33, "   ******    ");
   	mvaddstr(11, 33, "   ******    ");
@@ -43,18 +43,19 @@ int  rock (){
 
 int paper(){
   	mvaddstr(10, 33, "    ******   ");
-  	mvaddstr(10, 33, "   ******    ");
-  	mvaddstr(11, 33, "   *****     ");
-  	mvaddstr(12, 33, "  *****      ");
-  	mvaddstr(13, 33, " *****       ");
-  	mvaddstr(13, 33, " ****        ");
+  	mvaddstr(10, 33, "   ********    ");
+  	mvaddstr(11, 33, "   *******     ");
+  	mvaddstr(12, 33, "  *******      ");
+ 	mvaddstr(13, 33, " *******       ");
+  	mvaddstr(13, 33, " *****        ");
 }
 
 int scissors(){
   	mvaddstr(10, 33, "  **    **   ");
   	mvaddstr(10, 33, "   **  **    ");
   	mvaddstr(11, 33, "    ****     ");
-  	mvaddstr(12, 33, "    ***      ");
-  	mvaddstr(13, 33, "  **   **    ");
-  	mvaddstr(13, 33, "  **   **    ");
+  	mvaddstr(12, 33, "     ***     ");
+  	mvaddstr(13, 33, "   ***  ***    ");
+  	mvaddstr(13, 33, "  ***    ***   ");
 }
+

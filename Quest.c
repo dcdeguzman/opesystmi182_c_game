@@ -1,8 +1,8 @@
 #include <curses.h>
 #include <stdlib.h>
 
-#define GRASS  	  ' '
-#define EMPTY     '.'
+#define GRASS  	  ','
+#define EMPTY     ' '
 #define WATER	  '~'
 #define MOUNTAIN  '^'
 #define PLAYER	  '*'
