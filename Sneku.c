@@ -1,4 +1,4 @@
-W#include <string.h>
+#include <string.h>
 #include <unistd.h>
 #include <math.h>
 #include <curses.h>
@@ -13,8 +13,8 @@ W#include <string.h>
 #define LEFT 3
 #define RIGHT 4
 #define SNAKE_CHAR 'o'
-#define FOOD_CHAR '.'
-#define WALL_CHAR '$'
+#define FOOD_CHAR '*'
+#define WALL_CHAR ' '
 
 typedef struct SnakePart_ {
     int x;
@@ -53,7 +53,7 @@ void initGame(void) {
     cbreak();
     curs_set(0);
 	start_color();			/* Start color 			*/
-	init_pair(1, COLOR_RED, COLOR_BLACK);
+	init_pair(1, COLOR_BLUE, COLOR_RED);
     attron(A_BOLD);
     clear();
     color_set(1, NULL);
@@ -213,7 +213,7 @@ void checkGame() {
         showYouLoose();
         timeout(-1);
         getch();
-        exit(0);
+        exit(1);
     }
 }
 
