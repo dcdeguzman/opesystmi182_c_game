@@ -1,4 +1,4 @@
-#include <string.h>
+W#include <string.h>
 #include <unistd.h>
 #include <math.h>
 #include <curses.h>
@@ -12,7 +12,7 @@
 #define DOWN 2
 #define LEFT 3
 #define RIGHT 4
-#define SNAKE_CHAR '>'
+#define SNAKE_CHAR 'o'
 #define FOOD_CHAR '.'
 #define WALL_CHAR '$'
 
@@ -149,16 +149,16 @@ void moveSnake() {
 // Recognize snake control
 void setDirection(char c) {
     switch(c) {
-        case 'W':
+        case 'w':
             direction = UP;
             break;
-        case 'S':
+        case 's':
             direction = DOWN;
             break;
-        case 'D':
+        case 'd':
             direction = RIGHT;
             break;
-        case 'A':
+        case 'a':
             direction = LEFT;
             break;
     }
@@ -207,13 +207,13 @@ void checkGame() {
         showWinner();
         timeout(-1);
         getch();
-        exit(0);
+        exit(1);
     }
     if ((mvinch(snake[0].y, snake[0].x) & A_CHARTEXT) == WALL_CHAR) {
         showYouLoose();
         timeout(-1);
         getch();
-        exit(1);
+        exit(0);
     }
 }
 
