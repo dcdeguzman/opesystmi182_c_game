@@ -12,9 +12,9 @@
 #define DOWN 2
 #define LEFT 3
 #define RIGHT 4
-#define SNAKE_CHAR '<'
+#define SNAKE_CHAR '>'
 #define FOOD_CHAR '*'
-#define WALL_CHAR '#'
+#define WALL_CHAR '$'
 
 typedef struct SnakePart_ {
     int x;
@@ -149,16 +149,16 @@ void moveSnake() {
 // Recognize snake control
 void setDirection(char c) {
     switch(c) {
-        case 'w':
+        case "ARROW_UP":
             direction = UP;
             break;
-        case 's':
+        case "ARROW_DOWN":
             direction = DOWN;
             break;
-        case 'd':
+        case "ARROW_RIGHT":
             direction = RIGHT;
             break;
-        case 'a':
+        case "ARROW_LEFT":
             direction = LEFT;
             break;
     }
