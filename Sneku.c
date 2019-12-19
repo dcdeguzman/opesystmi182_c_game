@@ -149,16 +149,16 @@ void moveSnake() {
 // Recognize snake control
 void setDirection(char c) {
     switch(c) {
-        case "ARROW_UP":
+        case 'W':
             direction = UP;
             break;
-        case "ARROW_DOWN":
+        case 'S':
             direction = DOWN;
             break;
-        case "ARROW_RIGHT":
+        case 'D':
             direction = RIGHT;
             break;
-        case "ARROW_LEFT":
+        case 'A':
             direction = LEFT;
             break;
     }
