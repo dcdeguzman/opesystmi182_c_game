@@ -58,4 +58,3 @@ int scissors(){
   	mvaddstr(13, 33, "   ***  ***    ");
   	mvaddstr(13, 33, "  ***    ***   ");
 }
-
