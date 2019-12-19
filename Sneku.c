@@ -13,7 +13,7 @@
 #define LEFT 3
 #define RIGHT 4
 #define SNAKE_CHAR '>'
-#define FOOD_CHAR '*'
+#define FOOD_CHAR '.'
 #define WALL_CHAR '$'
 
 typedef struct SnakePart_ {
