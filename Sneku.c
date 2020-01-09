@@ -210,9 +210,6 @@ int main() {
     drawSnake();
     addFood();
     refresh();
-    time_t seconds;
-    time(&seconds);
-    seconds = time(NULL);
     // Main game loop
     while (1) {
         timeout(100);
@@ -226,4 +223,12 @@ int main() {
         drawFood();
         refresh();
     }
+	{
+    time_t seconds;
+     // Stores time seconds
+    time(&seconds);
+    printf("Seconds since January 1, 1970 = %ld\n", seconds);
+
+    return 0;
+		}
 }
