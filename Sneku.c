@@ -3,8 +3,9 @@
 #include <math.h>
 #include <curses.h>
 #include <stdlib.h>
+#include <time.h>
 
-#define SNAKE_MAX_LENGTH 12
+#define SNAKE_MAX_LENGTH 100
 #define WIN_MSG "You are the WINNER!"
 #define WELCOME_MSG "We present you the ultimate SNAKE game!!!"
 #define LOST_MSG "Loooooser :-))))"
@@ -20,19 +21,15 @@ typedef struct SnakePart_ {
     int x;
     int y;
 } SnakePart;
-
-
 typedef struct Food_ {
     int x;
     int y;
 } Food;
-
 Food food;
 int direction;
 SnakePart snake[SNAKE_MAX_LENGTH];
 int snakeLength = 1;
 int row, col;
-
 // Initialization of ncurses and the game
 void initGame(void) {
     srand(nice(0));
@@ -40,25 +37,22 @@ void initGame(void) {
         snake[i].x = -1;
         snake[i].y = -1;
     }
-
     initscr();
 	if(has_colors() == FALSE)
 	{	endwin();
 		printf("Your terminal does not support color\n");
 		return;
 	}
-
     getmaxyx(stdscr, row, col);
     noecho();
     cbreak();
     curs_set(0);
-	start_color();			/* Start color 			*/
-	init_pair(1, COLOR_BLUE, COLOR_RED);
+	start_color(); /* Start color */
+	init_pair(1, COLOR_GREEN, COLOR_BLACK);
     attron(A_BOLD);
     clear();
     color_set(1, NULL);
 }
-
 // Randomly add fodd spot to the level
 void addFood() {
     int x,y;
@@ -71,22 +65,19 @@ void addFood() {
     food.y = y;
     food.x = x;
 }
-
 // Draw food on a game plan
 void drawFood() {
     move(food.y, food.x);
     addch(FOOD_CHAR);
 }
-
 void initSnake() {
     snake[1].x = 2;
     snake[1].y = row/2;
-    snake[0].x = 3;
+    snake[0].x = 2;
     snake[0].y = row/2;
-    snakeLength = 2;
+    snakeLength = 1;
     direction = RIGHT;
 }
-
 // Draw the the actual position of the snake
 void drawSnake() {
     int i=0;
@@ -96,7 +87,6 @@ void drawSnake() {
         i++;
     }
 }
-
 // Helper method for shifting snake parts
 void shiftSnake() {
     int i=0;
@@ -104,7 +94,6 @@ void shiftSnake() {
         snake[i+1] = snake[i];
     }
 }
-
 // Helper method for the snake movement that moves snake head in a desired direction
 void addHead() {
      SnakePart origHead = snake[0];
@@ -125,18 +114,15 @@ void addHead() {
     }
     snake[0] = origHead;
 }
-
 // Helper method for snake movement that cuts the end of the snake
 void removeTail() {
     mvaddch(snake[snakeLength].y, snake[snakeLength].x, ' ');
     snake[snakeLength].x = -1;
     snake[snakeLength].y = -1;
 }
-
 // Refresh snake movement
 void moveSnake() {
-    addHead();
-//    checkGame();
+    addHead(); // checkGame();
     mvaddch(snake[0].y, snake[0].x, SNAKE_CHAR);
     if (snake[0].x == food.x && snake[0].y == food.y) {
         snakeLength++;
@@ -145,7 +131,6 @@ void moveSnake() {
         removeTail();
     }
 }
-
 // Recognize snake control
 void setDirection(char c) {
     switch(c) {
@@ -163,28 +148,24 @@ void setDirection(char c) {
             break;
     }
 }
-
 // Draw the winner screen
 void showWinner() {
     clear();
     mvprintw(row/2, col/2-strlen(WIN_MSG)/2, WIN_MSG);
     refresh();
 }
-
 // Draw the welcome screen
 void showWelcome() {
     clear();
     mvprintw(row/2, col/2-strlen(WELCOME_MSG)/2, WELCOME_MSG);
     refresh();
 }
-
 // Draw the welcome screen
 void showYouLoose() {
     clear();
     mvprintw(row/2, col/2-strlen(LOST_MSG)/2, LOST_MSG);
     refresh();
 }
-
 // Draw the level walls
 void drawLevel() {
     for (int i=0; i<row; i++) {
@@ -200,27 +181,26 @@ void drawLevel() {
         mvaddch((row/4)*3, i, WALL_CHAR);
     }
 }
-
 // Check on a game state. Checked after every game step (see main())
 void checkGame() {
     if (snakeLength == SNAKE_MAX_LENGTH-1) {
         showWinner();
         timeout(-1);
         getch();
-        exit(1);
+        refresh();
+	endwin();
     }
     if ((mvinch(snake[0].y, snake[0].x) & A_CHARTEXT) == WALL_CHAR) {
         showYouLoose();
         timeout(-1);
         getch();
-        exit(1);
+        refresh();
+	endwin();
     }
 }
-
 // Game init function
 int main() {
     char c;
-
     initGame();
     showWelcome();
     getch();
@@ -230,10 +210,12 @@ int main() {
     drawSnake();
     addFood();
     refresh();
-
+    time_t seconds;
+    time(&seconds);
+    seconds = time(NULL);
     // Main game loop
     while (1) {
-        timeout(70);
+        timeout(100);
         c = getch();
         setDirection(c);
         clear();
